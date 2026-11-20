@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>CH صدقة جارية | أوقات الصلاة والقرآن والأذكار وطلب العلم</title>
+<meta name="description" content="موقع CH صدقة جارية: أوقات الصلاة لجميع ولايات الجزائر مع النوافل، القرآن الكريم بالأجزاء والأحزاب، الأذكار وعدّاد التسبيح، المتون ودروس طلب العلم، وروابط العلماء الموثوقين.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#17604C">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_DZ">
+<meta property="og:title" content="CH صدقة جارية">
+<meta property="og:description" content="أوقات الصلاة لجميع ولايات الجزائر، القرآن، الأذكار، وطلب العلم.">
+<style>body{margin:0}[hidden]{display:none!important}</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&display=swap">
+<style>
+/* Layout: one column, five separate sections switched by a bottom tab bar (prayer, quran, adhkar, knowledge, scholars) */
+:root{
+  --bg:#F3F6F4; --surface:#FFFFFF; --fg:#14211C; --muted:#586A62; --border:#D3DED8;
+  --accent:#17604C; --accent-fg:#FFFFFF; --accent-soft:#DDEBE4; --note:#8A5F10; --note-soft:#F6ECD3;
+  --font-ui:"Tajawal","Segoe UI",Tahoma,sans-serif; --font-display:"Amiri","Traditional Arabic",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1613; --surface:#16221D; --fg:#E6EFEA; --muted:#9AADA4; --border:#2A3A31;
+  --accent:#62C4A2; --accent-fg:#08140F; --accent-soft:#1D3A30; --note:#E2B861; --note-soft:#2B2312; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1613; --surface:#16221D; --fg:#E6EFEA; --muted:#9AADA4; --border:#2A3A31;
+  --accent:#62C4A2; --accent-fg:#08140F; --accent-soft:#1D3A30; --note:#E2B861; --note-soft:#2B2312; color-scheme:dark}
+*{box-sizing:border-box}
+html{direction:rtl}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-ui);font-size:16px;line-height:1.7;
+  padding-block:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:640px;margin:0 auto;padding-block:20px 110px}
+header.top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-bottom:12px}
+header.top h1{font-family:var(--font-display);font-size:30px;line-height:1.2;margin:0;color:var(--accent)}
+header.top span{font-size:13px;color:var(--muted)}
+h2{font-size:20px;margin:0 0 8px}
+h3{font-size:16px;margin:0 0 4px}
+p{margin:0 0 10px}
+.muted{color:var(--muted);font-size:14px}
+section.view{display:none;flex-direction:column;gap:14px}
+section.view.on{display:flex}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;min-width:0}
+.card.hero{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.card.note{background:var(--note-soft);border-color:transparent;color:var(--fg)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+select,input{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:9px 12px;min-width:0}
+select{flex:1 1 180px}
+input{flex:1 1 90px;width:100%}
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:2px}
+button,.btn{font:inherit;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--fg);border-radius:10px;padding:8px 14px;text-decoration:none;display:inline-block}
+button.on,.btn.main{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.next-name{font-family:var(--font-display);font-size:38px;line-height:1.1;margin:2px 0}
+.next-time{font-size:22px;font-variant-numeric:tabular-nums}
+.hero .lbl{opacity:.85;font-size:14px}
+.times{display:grid;grid-template-columns:1fr auto;gap:0 16px}
+.times div{padding:9px 0;border-bottom:1px solid var(--border);min-width:0}
+.times div:nth-last-child(-n+2){border-bottom:0}
+.times .t{font-variant-numeric:tabular-nums;font-weight:700;text-align:left}
+.times .cur{color:var(--accent);font-weight:700}
+.times small{display:block;color:var(--muted);font-size:13px;line-height:1.5;font-weight:400}
+.sub{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:6px}
+.pill{display:inline-block;background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:1px 10px;font-size:13px;font-weight:700}
+.qibla{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.qibla svg{width:140px;height:140px;flex:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px}
+.grid a{display:block;text-align:center;padding:9px 6px;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--fg);text-decoration:none;font-size:15px}
+.grid a b{color:var(--accent);font-variant-numeric:tabular-nums;margin-inline-start:4px}
+.grid.small{grid-template-columns:repeat(auto-fill,minmax(54px,1fr))}
+.grid.small a{padding:7px 2px;font-variant-numeric:tabular-nums}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.remind{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+.remind:last-child{border-bottom:0}
+.remind a{color:var(--accent);font-weight:700;text-decoration:none;white-space:nowrap}
+.fadl{padding:10px 0;border-bottom:1px solid var(--border)}
+.fadl:last-child{border-bottom:0}
+.fadl .src{color:var(--muted);font-size:13px}
+.matn{display:flex;flex-direction:column;gap:8px}
+.matn .by{color:var(--muted);font-size:14px}
+.links{display:flex;gap:8px;flex-wrap:wrap}
+.links a{font-size:14px;padding:6px 12px;border:1px solid var(--border);border-radius:999px;color:var(--accent);text-decoration:none;background:var(--bg)}
+a.list{display:block;padding:12px 0;border-bottom:1px solid var(--border);color:var(--accent);font-weight:700;text-decoration:none}
+a.list:last-child{border-bottom:0}
+details.les{border-bottom:1px solid var(--border);padding:8px 0}
+details.les:last-child{border-bottom:0}
+details.les summary{cursor:pointer;font-weight:700;list-style-position:inside}
+details.les ol,details.les ul{margin:8px 0 0;padding-inline-start:22px}
+details.les li{margin-bottom:4px}
+footer{margin-top:8px;text-align:center;color:var(--muted);font-size:14px}
+nav.bar{position:fixed;inset:auto 0 0 0;background:var(--surface);border-top:1px solid var(--border);display:flex;justify-content:center;
+  padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px));z-index:5}
+nav.bar .in{display:flex;width:100%;max-width:640px;gap:2px}
+nav.bar a{flex:1;text-align:center;text-decoration:none;color:var(--muted);padding:8px 2px;border-radius:10px;font-size:13.5px;font-weight:500;min-width:0}
+nav.bar a.on{background:var(--accent-soft);color:var(--accent);font-weight:700}
+@media (prefers-reduced-motion:no-preference){section.view.on{animation:in .18s ease-out}}
+@keyframes in{from{opacity:.4}to{opacity:1}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><h1>CH صدقة جارية</h1><span id="today"></span></header>
+
+  <!-- ١) الصلاة -->
+  <section class="view" id="v-prayer">
+    <div class="card">
+      <label for="city">الولاية</label>
+      <select id="city"></select>
+      <details style="margin-top:10px"><summary class="muted" style="cursor:pointer">مكان آخر خارج الجزائر</summary>
+        <div class="row" style="margin-top:8px">
+          <div style="flex:1 1 90px"><label for="lat">خط العرض</label><input id="lat" inputmode="decimal" placeholder="36.75"></div>
+          <div style="flex:1 1 90px"><label for="lng">خط الطول</label><input id="lng" inputmode="decimal" placeholder="3.06"></div>
+          <div style="flex:1 1 90px"><label for="tz">فرق التوقيت (UTC)</label><input id="tz" inputmode="decimal" placeholder="1"></div>
+          <button id="applyManual" type="button">تطبيق</button>
+        </div>
+        <p class="muted" id="manualErr" hidden style="margin:8px 0 0;color:var(--note)">أدخل أرقامًا صحيحة: خط العرض بين -66 و66، وخط الطول بين -180 و180، وفرق التوقيت مثل 1.</p>
+      </details>
+    </div>
+
+    <div class="card hero" aria-live="polite">
+      <div class="lbl">الفريضة القادمة</div>
+      <div class="next-name" id="nextName">—</div>
+      <div class="next-time" id="nextTime"></div>
+      <div id="nextLeft" style="opacity:.9;font-size:15px"></div>
+    </div>
+    <div class="card">
+      <div class="sub"><h2 style="margin:0">الصلوات الفرائض</h2><span class="muted" id="sunriseLine"></span></div>
+      <div class="times" id="times"></div>
+    </div>
+
+    <div class="card">
+      <div class="sub"><h2 style="margin:0">صلوات النوافل</h2><span class="pill" id="nafNext"></span></div>
+      <div class="times" id="naf"></div>
+      <p class="muted" style="margin:10px 0 0">النوافل مستحبة وليست واجبة. الضحى والقيام أوقاتهما تقديرية.</p>
+    </div>
+
+    <div class="card">
+      <h2>القبلة</h2>
+      <a class="btn main" href="https://qiblafinder.withgoogle.com" target="_blank" rel="noopener">افتح بوصلة القبلة</a>
+    </div>
+  </section>
+
+  <!-- ٢) القرآن -->
+  <section class="view" id="v-quran">
+    <div class="card">
+      <h2>تذكير الآن</h2>
+      <div id="reminders"></div>
+      <p class="muted" style="margin:8px 0 0">هذه سور موجودة للتذكير فقط عند فتحك الموقع، ولا يرسل الموقع إشعارات.</p>
+    </div>
+    <div class="card">
+      <h2>القرآن الكريم</h2>
+      <p class="muted">ابدأ من أي سورة أو جزء أو حزب أو صفحة. تفتح الصفحة في موقع القرآن (quran.com): مصحف واضح وتلاوة وتفسير.</p>
+      <div class="tabs" role="tablist" id="qtabs">
+        <button type="button" data-q="surah" class="on">السور</button>
+        <button type="button" data-q="juz">الأجزاء (30)</button>
+        <button type="button" data-q="hizb">الأحزاب (60)</button>
+        <button type="button" data-q="page">الصفحات (604)</button>
+      </div>
+    </div>
+    <div class="card"><div class="grid" id="qgrid"></div></div>
+    <div class="card">
+      <h2>التفسير</h2>
+      <p class="muted" style="margin:0 0 6px">في صفحة السورة على quran.com اضغط على أي آية ثم اختر «التفسير»، فتجد تفاسير مشهورة منها ابن كثير والسعدي.</p>
+      <a class="list" href="https://www.altafsir.com" target="_blank" rel="noopener">موقع التفاسير (altafsir.com) ←</a>
+    </div>
+    <div class="card">
+      <h2>سور مأثورة</h2>
+      <div id="fadail"></div>
+      <p class="muted" style="margin:8px 0 0">منقولة بالمعنى للتذكير. يُرجع إلى نصها وتخريجها عند أهل العلم.</p>
+    </div>
+  </section>
+
+  <!-- ٣) الأذكار -->
+  <section class="view" id="v-adhkar">
+    <div class="card">
+      <h2>الأذكار</h2>
+      <p class="muted">أذكار الصباح والمساء والنوم والخلاء ودخول المسجد والخروج منه وأذكار الصلاة، من «حصن المسلم» وما ثبت في الأحاديث الصحيحة.</p>
+      <a class="list" href="https://sunnah.com/hisn" target="_blank" rel="noopener">حصن المسلم كاملًا (sunnah.com) ←</a>
+      <a class="list" href="https://www.alukah.net/sharia/0/80998/%d8%a3%d8%b0%d9%83%d8%a7%d8%b1-%d8%a7%d9%84%d8%b5%d8%a8%d8%a7%d8%ad-%d9%88%d8%a7%d9%84%d9%85%d8%b3%d8%a7%d8%a1/" target="_blank" rel="noopener">أذكار الصباح والمساء (الألوكة) ←</a>
+    </div>
+    <div class="card">
+      <h2>أوقات مستحبة للذكر والعبادة</h2>
+      <ul style="margin:0;padding-inline-start:22px">
+        <li>أذكار الصباح بعد صلاة الفجر، وأذكار المساء بعد العصر أو بعد المغرب.</li>
+        <li>الأذكار بعد الفريضة مباشرة.</li>
+        <li>الثلث الأخير من الليل وقت للدعاء والقيام.</li>
+        <li>الضحى بعد ارتفاع الشمس قليلًا.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>التسبيح بعد الصلاة</h2>
+      <p class="muted">بعد كل فريضة: سبحان الله 33، والحمد لله 33، والله أكبر 34. اضغط الزر عند كل تسبيحة، وينتقل العداد تلقائيًا إلى الذكر التالي.</p>
+      <div style="text-align:center">
+        <div id="tsName" style="font-family:var(--font-display);font-size:34px;line-height:1.2">سبحان الله</div>
+        <div id="tsCnt" style="font-size:22px;font-variant-numeric:tabular-nums;color:var(--muted);margin-bottom:10px">0 / 33</div>
+        <button id="tsBtn" type="button" class="on" style="width:100%;max-width:320px;padding:26px 14px;font-size:20px;border-radius:18px">سبّح</button>
+        <p id="tsDone" hidden class="muted" style="margin:10px 0 0">تمت المئة. وتمام المئة بالتهليل كما في حديث مسلم، فراجعه في «حصن المسلم».</p>
+        <div style="margin-top:10px"><button id="tsReset" type="button">إعادة من البداية</button></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>أذكار بعد الصلاة</h2>
+      <p class="muted" style="margin:0 0 6px">الاستغفار ثلاثًا، وآية الكرسي، والمعوذات، وغيرها. نصوصها الصحيحة في «حصن المسلم»، ولن نكتبها هنا إلا بعد التدقيق.</p>
+      <a class="list" href="https://sunnah.com/hisn" target="_blank" rel="noopener">أذكار بعد الصلاة في حصن المسلم ←</a>
+    </div>
+  </section>
+
+  <!-- ٤) العلم -->
+  <section class="view" id="v-ilm">
+    <div class="card">
+      <h2>دروس مختصرة</h2>
+      <details class="les"><summary>أركان الإسلام</summary>
+        <p class="muted" style="margin-top:6px">ثبتت في حديث «بُني الإسلام على خمس» (متفق عليه).</p>
+        <ol><li>شهادة أن لا إله إلا الله وأن محمدًا رسول الله</li><li>إقام الصلاة</li><li>إيتاء الزكاة</li><li>صوم رمضان</li><li>حج البيت لمن استطاع إليه سبيلًا</li></ol>
+      </details>
+      <details class="les"><summary>أركان الإيمان</summary>
+        <p class="muted" style="margin-top:6px">ثبتت في حديث جبريل (رواه مسلم).</p>
+        <ol><li>الإيمان بالله</li><li>الإيمان بالملائكة</li><li>الإيمان بالكتب</li><li>الإيمان بالرسل</li><li>الإيمان باليوم الآخر</li><li>الإيمان بالقدر خيره وشره</li></ol>
+      </details>
+      <details class="les"><summary>الإحسان</summary>
+        <p style="margin-top:6px">جاء في حديث جبريل أن الإحسان أن تعبد الله كأنك تراه، فإن لم تكن تراه فإنه يراك.</p>
+      </details>
+      <details class="les"><summary>الزكاة باختصار</summary>
+        <ul>
+          <li>ركن من أركان الإسلام، وتجب في المال إذا بلغ النصاب وحال عليه الحول.</li>
+          <li>مقدارها في النقود وعروض التجارة ربع العشر، أي 2.5%.</li>
+          <li>نصاب الذهب 85 غرامًا.</li>
+          <li>مصارفها ثمانية أصناف ذكرها الله في سورة التوبة (الآية 60).</li>
+        </ul>
+        <p class="muted" style="margin-top:6px">للتفصيل في حالتك اسأل أهل العلم.</p>
+      </details>
+    </div>
+    <div class="card">
+      <h2>المتون</h2>
+      <p class="muted">متون يبدأ بها طالب العلم، مع روابط بحث يوتيوب عن شروحها. تأكد من اسم الشيخ عند فتح الفيديو.</p>
+    </div>
+    <div id="mutun" style="display:flex;flex-direction:column;gap:14px"></div>
+  </section>
+
+  <!-- ٥) العلماء -->
+  <section class="view" id="v-ulama">
+    <div class="card">
+      <h2>العلماء الموثوقون</h2>
+      <p class="muted">ننصح بمتابعة دروسهم ومحاضراتهم. كل رابط يفتح نتائج بحث يوتيوب عن الشيخ.</p>
+      <div id="ulama"></div>
+    </div>
+  </section>
+
+  <footer>صدقة جارية عن صاحب الموقع، فلا تنسوه من دعائكم.</footer>
+</div>
+
+<nav class="bar" aria-label="الأقسام"><div class="in">
+  <a href="#prayer" data-v="prayer">الصلاة</a>
+  <a href="#quran" data-v="quran">القرآن</a>
+  <a href="#adhkar" data-v="adhkar">الأذكار</a>
+  <a href="#ilm" data-v="ilm">العلم</a>
+  <a href="#ulama" data-v="ulama">العلماء</a>
+</div></nav>
+
+<script>
+//#calc-start
+var KAABA={lat:21.4225,lng:39.8262};
+var D2R=Math.PI/180, R2D=180/Math.PI;
+function dsin(d){return Math.sin(d*D2R)} function dcos(d){return Math.cos(d*D2R)} function dtan(d){return Math.tan(d*D2R)}
+function darcsin(x){return R2D*Math.asin(x)} function darccos(x){return R2D*Math.acos(x)}
+function darctan2(y,x){return R2D*Math.atan2(y,x)} function darccot(x){return R2D*Math.atan(1/x)}
+function fixAngle(a){a=a-360*Math.floor(a/360);return a<0?a+360:a}
+function fixHour(a){a=a-24*Math.floor(a/24);return a<0?a+24:a}
+function julian(y,m,d){ if(m<=2){y-=1;m+=12}
+  var A=Math.floor(y/100),B=2-A+Math.floor(A/4);
+  return Math.floor(365.25*(y+4716))+Math.floor(30.6001*(m+1))+d+B-1524.5 }
+function sunPosition(jd){
+  var D=jd-2451545.0, g=fixAngle(357.529+0.98560028*D), q=fixAngle(280.459+0.98564736*D);
+  var L=fixAngle(q+1.915*dsin(g)+0.020*dsin(2*g));
+  var e=23.439-0.00000036*D, RA=darctan2(dcos(e)*dsin(L),dcos(L))/15;
+  return {decl:darcsin(dsin(e)*dsin(L)), eq:q/15-fixHour(RA)};
+}
+function prayerTimes(y,m,d,lat,lng,tz,fajrAng,ishaAng){
+  var jd=julian(y,m,d)-lng/(15*24);
+  function midDay(t){return fixHour(12-sunPosition(jd+t).eq)}
+  function angleTime(angle,t,ccw){
+    var decl=sunPosition(jd+t).decl, noon=midDay(t);
+    var v=(-dsin(angle)-dsin(decl)*dsin(lat))/(dcos(decl)*dcos(lat));
+    if(v>1||v<-1) return NaN;
+    var h=darccos(v)/15; return noon+(ccw?-h:h);
+  }
+  function asrTime(f,t){var decl=sunPosition(jd+t).decl;return angleTime(-darccot(f+dtan(Math.abs(lat-decl))),t,false)}
+  var rs=0.833, adj=tz-lng/15;
+  var r={fajr:angleTime(fajrAng,5/24,true), sunrise:angleTime(rs,6/24,true), dhuhr:midDay(12/24),
+         asr:asrTime(1,13/24), maghrib:angleTime(rs,18/24,false), isha:angleTime(ishaAng,18/24,false)};
+  for(var k in r) r[k]=fixHour(r[k]+adj);
+  return r;
+}
+function qiblaBearing(lat,lng){
+  var dl=(KAABA.lng-lng)*D2R, p1=lat*D2R, p2=KAABA.lat*D2R;
+  var b=Math.atan2(Math.sin(dl)*Math.cos(p2), Math.cos(p1)*Math.sin(p2)-Math.sin(p1)*Math.cos(p2)*Math.cos(dl))*R2D;
+  return (b+360)%360;
+}
+/* النوافل: كل القيم بالساعات، وتصل إلى ما بعد 24 لما بعد منتصف الليل */
+function nawafil(t,tomorrowFajr){
+  var night=(tomorrowFajr+24)-t.maghrib;
+  return [
+    {k:"fajrS",name:"سنة الفجر",rak:"ركعتان",note:"بعد دخول الفجر وقبل الفريضة",start:t.fajr},
+    {k:"duha",name:"صلاة الضحى",rak:"ركعتان فأكثر",note:"من ارتفاع الشمس قليلًا إلى قبيل الزوال",start:t.sunrise+0.25,end:t.dhuhr-1/6},
+    {k:"dhuhrS",name:"سنة الظهر",rak:"4 قبلها و2 بعدها",note:"الراتبة حول فريضة الظهر",start:t.dhuhr},
+    {k:"maghribS",name:"سنة المغرب",rak:"ركعتان",note:"بعد الفريضة",start:t.maghrib},
+    {k:"ishaS",name:"سنة العشاء",rak:"ركعتان",note:"بعد الفريضة",start:t.isha},
+    {k:"witr",name:"الوتر",rak:"ركعة فأكثر",note:"بعد العشاء إلى الفجر",start:t.isha},
+    {k:"qiyam",name:"قيام الليل",rak:"ما تيسر",note:"الثلث الأخير من الليل",start:t.maghrib+night*2/3}
+  ];
+}
+//#calc-end
+
+/* ولايات الجزائر الـ58 (إحداثيات مقر الولاية) */
+var WILAYAS=[
+["أدرار",27.87,-0.29],["الشلف",36.165,1.334],["الأغواط",33.8,2.8651],["أم البواقي",35.88,7.11],["باتنة",35.5559,6.1741],
+["بجاية",36.75,5.08],["بسكرة",34.85,5.73],["بشار",31.62,-2.22],["البليدة",36.47,2.83],["البويرة",36.37,3.9],
+["تمنراست",22.785,5.5228],["تبسة",35.4,8.12],["تلمسان",34.88,-1.32],["تيارت",35.37,1.32],["تيزي وزو",36.7169,4.0497],
+["الجزائر",36.7538,3.0588],["الجلفة",34.67,3.25],["جيجل",36.82,5.77],["سطيف",36.19,5.41],["سعيدة",34.83,0.15],
+["سكيكدة",36.88,6.9],["سيدي بلعباس",35.19,-0.63],["عنابة",36.9,7.7667],["قالمة",36.46,7.43],["قسنطينة",36.365,6.6147],
+["المدية",36.26,2.75],["مستغانم",35.93,0.09],["المسيلة",35.7,4.54],["معسكر",35.4,0.14],["ورقلة",31.95,5.32],
+["وهران",35.6971,-0.6308],["البيض",33.68,1.02],["إليزي",26.5,8.48],["برج بوعريريج",36.07,4.76],["بومرداس",36.76,3.48],
+["الطارف",36.77,8.31],["تندوف",27.67,-8.15],["تيسمسيلت",35.6,1.81],["الوادي",33.37,6.86],["خنشلة",35.43,7.14],
+["سوق أهراس",36.28,7.95],["تيبازة",36.59,2.44],["ميلة",36.45,6.26],["عين الدفلى",36.26,1.97],["النعامة",33.27,-0.31],
+["عين تموشنت",35.3,-1.14],["غرداية",32.49,3.67],["غليزان",35.74,0.56],["تيميمون",29.26,0.23],["برج باجي مختار",21.33,0.95],
+["أولاد جلال",34.43,5.07],["بني عباس",30.13,-2.17],["عين صالح",27.19,2.48],["عين قزام",19.57,5.77],["تقرت",33.1,6.06],
+["جانت",24.55,9.48],["المغير",33.95,5.92],["المنيعة",30.58,2.88]
+];
+var SURAHS="الفاتحة،البقرة،آل عمران،النساء،المائدة،الأنعام،الأعراف،الأنفال،التوبة،يونس،هود،يوسف،الرعد،إبراهيم،الحجر،النحل،الإسراء،الكهف،مريم،طه،الأنبياء،الحج،المؤمنون،النور،الفرقان،الشعراء،النمل،القصص،العنكبوت،الروم،لقمان،السجدة،الأحزاب،سبأ،فاطر،يس،الصافات،ص،الزمر،غافر،فصلت،الشورى،الزخرف،الدخان،الجاثية،الأحقاف،محمد،الفتح،الحجرات،ق،الذاريات،الطور،النجم،القمر،الرحمن،الواقعة،الحديد،المجادلة،الحشر،الممتحنة،الصف،الجمعة،المنافقون،التغابن،الطلاق،التحريم،الملك،القلم،الحاقة،المعارج،نوح،الجن،المزمل،المدثر،القيامة،الإنسان،المرسلات،النبأ،النازعات،عبس،التكوير،الانفطار،المطففين،الانشقاق،البروج،الطارق،الأعلى،الغاشية،الفجر،البلد،الشمس،الليل،الضحى،الشرح،التين،العلق،القدر،البينة،الزلزلة،العاديات،القارعة،التكاثر،العصر،الهمزة،الفيل،قريش،الماعون،الكوثر،الكافرون،النصر،المسد،الإخلاص،الفلق،الناس".split("،");
+var NAMES={fajr:"الفجر",dhuhr:"الظهر",asr:"العصر",maghrib:"المغرب",isha:"العشاء"};
+var FADAIL=[
+ {id:"kahf",s:18,when:"الجمعة",t:"سورة الكهف",x:"ورد أن من قرأها يوم الجمعة أضاء الله له من النور ما بين الجمعتين.",src:"رواه الحاكم والبيهقي، وصححه الألباني"},
+ {id:"baqara",s:2,when:"الصباح",t:"سورة البقرة",x:"الشيطان ينفر من البيت الذي تُقرأ فيه سورة البقرة.",src:"رواه مسلم"},
+ {id:"baqend",s:2,when:"الليل",t:"آخر آيتين من سورة البقرة",x:"من قرأ بهما في ليلة كفتاه.",src:"متفق عليه"},
+ {id:"mulk",s:67,when:"الليل",t:"سورة الملك",x:"سورة ثلاثون آية شفعت لصاحبها حتى غُفر له.",src:"رواه أبو داود والترمذي"},
+ {id:"ikhlas",s:112,when:"",t:"سورة الإخلاص",x:"تعدل ثلث القرآن.",src:"رواه البخاري"},
+ {id:"muawwidhat",s:113,when:"الصباح والمساء",t:"الإخلاص والمعوذتان",x:"من قرأها حين يصبح وحين يمسي ثلاثًا كفته من كل شيء.",src:"رواه أبو داود والترمذي"},
+ {id:"kursi",s:2,when:"بعد الصلاة",t:"آية الكرسي",x:"من قرأها دبر كل صلاة مكتوبة لم يمنعه من دخول الجنة إلا الموت.",src:"رواه النسائي في الكبرى، وصححه الألباني"}
+];
+var MUTUN=[
+ ["القواعد الأربع","الشيخ محمد بن عبد الوهاب"],["ثلاثة الأصول","الشيخ محمد بن عبد الوهاب"],
+ ["كتاب التوحيد","الشيخ محمد بن عبد الوهاب"],["تحفة الأطفال","الشيخ سليمان الجمزوري"],
+ ["الأربعون النووية","الإمام النووي"],["العقيدة الواسطية","شيخ الإسلام ابن تيمية"],
+ ["العقيدة الطحاوية","الإمام أبو جعفر الطحاوي"]
+];
+var SHEIKHS=["الشيخ صالح الفوزان","الشيخ ابن عثيمين","الشيخ ابن باز"];
+var ULAMA=[
+ ["الشيخ ابن باز","رحمه الله"],["الشيخ ابن عثيمين","رحمه الله"],["الشيخ صالح الفوزان",""],["الشيخ الألباني","رحمه الله"],
+ ["الشيخ عبد الرزاق البدر",""],["الشيخ عبد المحسن البدر",""],["الشيخ صالح الحيدان",""],["الشيخ ربيع المدخلي",""],
+ ["الشيخ عبد الله القصير",""],["الشيخ عبد السلام الشويعر",""]
+];
+
+function $(id){return document.getElementById(id)}
+function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+function hm(h){ if(isNaN(h)) return "--:--"; var m=Math.round(h*60), H=Math.floor(m/60)%24, M=m%60; return (H<10?"0":"")+H+":"+(M<10?"0":"")+M }
+function toMin(h){return Math.round(h*60)}
+function leftText(m){ var H=Math.floor(m/60), M=m%60; return "بعد "+(H?H+" س و ":"")+M+" د" }
+
+var place={name:WILAYAS[15][0],lat:WILAYAS[15][1],lng:WILAYAS[15][2],tz:1};
+
+function nowAt(tz){ var d=new Date(Date.now()+tz*3600000);
+  return {y:d.getUTCFullYear(),m:d.getUTCMonth()+1,d:d.getUTCDate(),dow:d.getUTCDay(),min:d.getUTCHours()*60+d.getUTCMinutes()} }
+
+var LAST={};
+function renderPrayer(){
+  var n=nowAt(place.tz);
+  var t=prayerTimes(n.y,n.m,n.d,place.lat,place.lng,place.tz,18,17);
+  var tmD=new Date(Date.UTC(n.y,n.m-1,n.d+1));
+  var tm=prayerTimes(tmD.getUTCFullYear(),tmD.getUTCMonth()+1,tmD.getUTCDate(),place.lat,place.lng,place.tz,18,17);
+  LAST={t:t,n:n};
+
+  /* الفرائض */
+  var order=["fajr","dhuhr","asr","maghrib","isha"], nextKey=null, curKey=null;
+  order.forEach(function(k){ if(toMin(t[k])<=n.min) curKey=k });
+  for(var j=0;j<order.length;j++){ if(toMin(t[order[j]])>n.min){nextKey=order[j];break} }
+  var tomorrow=false, nt;
+  if(!nextKey){ nextKey="fajr"; tomorrow=true; nt=tm.fajr } else nt=t[nextKey];
+  $("nextName").textContent=NAMES[nextKey];
+  $("nextTime").textContent=hm(nt)+(tomorrow?" (غدًا)":"");
+  $("nextLeft").textContent=leftText(toMin(nt)+(tomorrow?1440:0)-n.min);
+  $("sunriseLine").textContent="الشروق "+hm(t.sunrise);
+  $("times").innerHTML=order.map(function(k){
+    var c=(k===curKey?"cur":""); return '<div class="'+c+'">'+NAMES[k]+'</div><div class="t '+c+'">'+hm(t[k])+'</div>' }).join("");
+
+  /* النوافل */
+  var list=nawafil(t,tm.fajr), nextN=null;
+  list.slice().sort(function(a,b){return a.start-b.start}).forEach(function(e){ if(!nextN&&toMin(e.start)>n.min) nextN=e });
+  var nextTxt;
+  if(nextN) nextTxt="التالية: "+nextN.name+" "+leftText(toMin(nextN.start)-n.min);
+  else { var f=nawafil(tm,tm.fajr)[0]; nextTxt="التالية: "+f.name+" "+leftText(toMin(f.start)+1440-n.min) }
+  $("nafNext").textContent=nextTxt;
+  $("naf").innerHTML=list.map(function(e){
+    var c=(nextN&&nextN.k===e.k?"cur":"");
+    var time=e.end?hm(e.start)+" – "+hm(e.end):hm(e.start);
+    return '<div class="'+c+'">'+e.name+' <span class="muted">('+e.rak+')</span><small>'+e.note+'</small></div><div class="t '+c+'">'+time+'</div>' }).join("");
+
+  $("today").textContent=place.name;
+  renderReminders();
+}
+
+function renderReminders(){
+  if(!LAST.t) return;
+  var t=LAST.t, n=LAST.n, ids=[];
+  if(n.dow===5) ids.push("kahf");
+  if(n.min>=toMin(t.fajr)&&n.min<toMin(t.dhuhr)) ids.push("baqara","muawwidhat");
+  if(n.min>=toMin(t.maghrib)||n.min<toMin(t.fajr)) ids.push("mulk","baqend","muawwidhat");
+  ids=ids.filter(function(v,i){return ids.indexOf(v)===i});
+  if(!ids.length) ids=["kursi"];
+  $("reminders").innerHTML=FADAIL.filter(function(f){return ids.indexOf(f.id)>=0}).map(function(f){
+    return '<div class="remind"><div><h3>'+f.t+(f.when?' <span class="pill">'+f.when+'</span>':'')+'</h3><span class="muted">'+f.x+'</span></div><a href="https://quran.com/'+f.s+'" target="_blank" rel="noopener">اقرأ ←</a></div>' }).join("");
+}
+
+function renderFadail(){
+  $("fadail").innerHTML=FADAIL.map(function(f){
+    return '<div class="fadl"><h3>'+f.t+(f.when?' <span class="pill">'+f.when+'</span>':'')+'</h3><p style="margin:0">'+f.x+'</p><div class="src">'+f.src+' · <a href="https://quran.com/'+f.s+'" target="_blank" rel="noopener" style="color:var(--accent)">اقرأ</a></div></div>' }).join("");
+}
+
+function renderQuran(kind){
+  var g=$("qgrid"), h="";
+  g.className="grid"+(kind==="page"?" small":"");
+  var cnt={surah:114,juz:30,hizb:60,page:604}[kind];
+  for(var i=1;i<=cnt;i++){
+    var href=kind==="surah"?("https://quran.com/"+i):("https://quran.com/"+kind+"/"+i);
+    h+='<a href="'+href+'" target="_blank" rel="noopener">'+(kind==="surah"?'<b>'+i+'</b>'+SURAHS[i-1]:(kind==="page"?i:(kind==="juz"?"جزء ":"حزب ")+'<b>'+i+'</b>'))+'</a>';
+  }
+  g.innerHTML=h;
+  [].forEach.call(document.querySelectorAll("#qtabs button"),function(b){b.classList.toggle("on",b.dataset.q===kind)});
+}
+
+function yt(q){return "https://www.youtube.com/results?search_query="+encodeURIComponent(q)}
+function renderMutun(){
+  $("mutun").innerHTML=MUTUN.map(function(m){
+    var links=SHEIKHS.map(function(s){ return '<a href="'+yt("شرح "+m[0]+" "+s)+'" target="_blank" rel="noopener">'+s.replace("الشيخ ","")+'</a>' }).join("");
+    return '<div class="card matn"><h3>'+m[0]+'</h3><div class="by">'+m[1]+'</div><div class="links">'+links+'</div></div>' }).join("");
+}
+function renderUlama(){
+  $("ulama").innerHTML=ULAMA.map(function(u){
+    return '<a class="list" href="'+yt(u[0]+" دروس")+'" target="_blank" rel="noopener">'+u[0]+(u[1]?' <span class="muted" style="font-weight:400">'+u[1]+'</span>':'')+' ←</a>' }).join("");
+}
+
+function setPlace(p){ place=p; store("wirdi-place",JSON.stringify(p)); renderPrayer() }
+function initCity(){
+  var sel=$("city");
+  sel.innerHTML=WILAYAS.map(function(c,i){return '<option value="'+i+'">'+(i+1)+" - "+c[0]+'</option>'}).join("")+'<option value="x">مكان مخصص (من الحقول)</option>';
+  sel.value="15";
+  var saved=null; try{saved=JSON.parse(store("wirdi-place")||"null")}catch(e){}
+  if(saved&&typeof saved.lat==="number"&&typeof saved.lng==="number"){ place=saved;
+    var idx=WILAYAS.findIndex(function(c){return c[0]===saved.name}); sel.value=idx>=0?String(idx):"x";
+    if(idx<0){$("lat").value=saved.lat;$("lng").value=saved.lng;$("tz").value=saved.tz} }
+  sel.addEventListener("change",function(){ if(sel.value==="x"){document.querySelector("#v-prayer details").open=true;return}
+    var c=WILAYAS[+sel.value]; setPlace({name:c[0],lat:c[1],lng:c[2],tz:1}) });
+  $("applyManual").addEventListener("click",function(){
+    var la=parseFloat($("lat").value), lo=parseFloat($("lng").value), tz=parseFloat($("tz").value), err=$("manualErr");
+    if(isNaN(la)||isNaN(lo)||isNaN(tz)||Math.abs(la)>66||Math.abs(lo)>180||Math.abs(tz)>14){ err.hidden=false; return }
+    err.hidden=true; sel.value="x"; setPlace({name:"مكان مخصص",lat:la,lng:lo,tz:tz}) });
+}
+
+var VIEWS=["prayer","quran","adhkar","ilm","ulama"];
+function route(){
+  var v=(location.hash||"").slice(1); if(VIEWS.indexOf(v)<0) v="prayer";
+  VIEWS.forEach(function(k){ $("v-"+k).classList.toggle("on",k===v) });
+  [].forEach.call(document.querySelectorAll("nav.bar a"),function(a){a.classList.toggle("on",a.dataset.v===v)});
+  window.scrollTo(0,0);
+}
+
+function initTasbih(){
+  var steps=[["سبحان الله",33],["الحمد لله",33],["الله أكبر",34]], i=0, c=0;
+  function draw(){
+    if(i>=steps.length){ $("tsName").textContent="تم"; $("tsCnt").textContent="100"; $("tsDone").hidden=false; return }
+    $("tsDone").hidden=true; $("tsName").textContent=steps[i][0]; $("tsCnt").textContent=c+" / "+steps[i][1];
+  }
+  $("tsBtn").addEventListener("click",function(){
+    if(i>=steps.length) return;
+    c++; if(c>=steps[i][1]){ i++; c=0 }
+    draw();
+    try{ if(navigator.vibrate) navigator.vibrate(12) }catch(e){}
+  });
+  $("tsReset").addEventListener("click",function(){ i=0; c=0; draw() });
+  draw();
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  initTasbih();
+  initCity(); renderMutun(); renderUlama(); renderFadail(); renderQuran("surah"); renderPrayer(); route();
+  window.addEventListener("hashchange",route);
+  [].forEach.call(document.querySelectorAll("#qtabs button"),function(b){b.addEventListener("click",function(){renderQuran(b.dataset.q)})});
+  setInterval(renderPrayer,30000);
+});
+</script>
+</body>
+</html>
